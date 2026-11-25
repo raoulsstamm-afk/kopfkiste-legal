@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kopfkiste</title>
+<meta name="description" content="Alles aus dem Kopf. Schritt für Schritt auf einen Plan.">
+<meta name="apple-itunes-app" content="app-id=6833911072">
+<meta property="og:title" content="Kopfkiste">
+<meta property="og:description" content="Alles aus dem Kopf. Schritt für Schritt auf einen Plan.">
+<meta property="og:image" content="https://raoulsstamm-afk.github.io/kopfkiste-legal/app-icon.png">
+<link rel="icon" href="app-icon.png">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: linear-gradient(180deg, #FFF8ED, #F5DCCB 65%, #F2B79C);
+    color: #55483F; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 32px 20px; text-align: center;
+  }
+  .box { max-width: 380px; width: 100%; }
+  .app-icon {
+    width: 96px; height: 96px; margin: 0 auto 18px; display: block;
+    border-radius: 22px; box-shadow: 0 10px 26px rgba(85,72,63,0.22);
+  }
+  h1 { font-size: 28px; color: #3E332C; margin-bottom: 8px; }
+  p  { font-size: 15px; color: rgba(85,72,63,0.8); margin-bottom: 24px; line-height: 1.5; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin: 10px 0; background: #F28B66; color: #2E241E;
+    padding: 18px 22px; border-radius: 16px; text-decoration: none;
+    font-weight: 800; font-size: 17px; box-shadow: 0 5px 0 #D46E4B;
+  }
+  .btn.alt { background: #fff; color: #3E332C; box-shadow: 0 5px 0 #E0C7B6; }
+  .hint {
+    background: #fff; border: 2px solid #F28B66; border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 18px; font-size: 13px;
+    line-height: 1.55; text-align: left;
+  }
+  .hint strong { color: #D46E4B; }
+  .hidden { display: none !important; }
+  .small { font-size: 12px; color: rgba(85,72,63,0.65); margin-top: 26px; line-height: 1.6; }
+  .small a { color: inherit; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <img src="app-icon.png" alt="Kopfkiste" class="app-icon">
+    <h1>Kopfkiste</h1>
+    <p>Alles aus dem Kopf. Schritt für Schritt auf einen Plan.</p>
+
+    <div id="inapp-hint" class="hint hidden">
+      <strong>Hinweis:</strong> Du bist gerade in einem In-App-Browser.
+      Falls der Knopf nicht klappt: tippe oben rechts auf die drei Punkte
+      und wähle <strong>„Im Browser öffnen"</strong>.
+    </div>
+
+    <a class="btn" id="ios-btn" href="https://apps.apple.com/de/app/id6833911072" onclick="return openIOS()">Im App Store laden</a>
+    <a class="btn alt" id="android-btn" href="mailto:aurorealis.apps@gmail.com?subject=Kopfkiste%20Android%20testen">Android: Bald im Play Store. Jetzt testen?</a>
+
+    <p class="small">
+      Fragen? Schreib uns an <a href="mailto:aurorealis.apps@gmail.com">aurorealis.apps@gmail.com</a><br>
+      <a href="support.html">Support</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a>
+    </p>
+  </div>
+
+  <script>
+    var APP_STORE_ID = '6833911072';
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    var isAndroid = /android/i.test(ua);
+    var isInApp = /BytedanceWebview|TikTok|musical_ly|Bytedance|Instagram|FBAN|FBAV/i.test(ua);
+    var IOS_SCHEME = 'itms-apps://itunes.apple.com/de/app/id' + APP_STORE_ID;
+    var IOS_HTTPS  = 'https://apps.apple.com/de/app/id' + APP_STORE_ID;
+
+    function openIOS() {
+      if (!isIOS) { window.location.href = IOS_HTTPS; return false; }
+      window.location.href = IOS_SCHEME;
+      setTimeout(function () { window.location.href = IOS_HTTPS; }, 1500);
+      return false;
+    }
+
+    if (isIOS) document.getElementById('android-btn').classList.add('hidden');
+    if (isInApp) document.getElementById('inapp-hint').classList.remove('hidden');
+    if (!isInApp && isIOS) setTimeout(openIOS, 350);
+  </script>
+</body>
+</html>
